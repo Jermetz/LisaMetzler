@@ -311,6 +311,50 @@
                 }
             }, 100); // 100 milliseconds per shuffle
         }
+        // Quote Vault Logic
+        function saveQuote() {
+            const textInput = document.getElementById('new-quote-text');
+            const authorInput = document.getElementById('new-quote-author');
+            
+            if (!textInput.value.trim() || !authorInput.value.trim()) return;
+
+            const newQuote = {
+                text: textInput.value.trim(),
+                author: authorInput.value.trim()
+            };
+
+            // Get existing quotes from local memory, add new one, and save back
+            const savedQuotes = JSON.parse(localStorage.getItem('friendsQuotes')) || [];
+            savedQuotes.unshift(newQuote); // Adds to the top of the list
+            localStorage.setItem('friendsQuotes', JSON.stringify(savedQuotes));
+
+            // Clear inputs and refresh list
+            textInput.value = '';
+            authorInput.value = '';
+            loadQuotes();
+        }
+
+        function loadQuotes() {
+            const quoteList = document.getElementById('quote-list');
+            const savedQuotes = JSON.parse(localStorage.getItem('friendsQuotes')) || [];
+            
+            quoteList.innerHTML = ''; // Clear current display
+
+            savedQuotes.forEach(quote => {
+                const card = document.createElement('div');
+                card.className = 'quote-card';
+                card.innerHTML = `
+                    <p class="quote-text">"${quote.text}"</p>
+                    <p class="quote-author">- ${quote.author}</p>
+                `;
+                quoteList.appendChild(card);
+            });
+        }
+
+        // Make sure quotes load automatically when the app opens
+        window.onload = function() {
+            loadQuotes();
+        };
 
     </script>
 </body>
