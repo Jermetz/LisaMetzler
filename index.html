@@ -309,39 +309,6 @@
             cursor: pointer;
             line-height: 1;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #334155;
-            font-size: 0.9rem;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-        .btn-submit {
-            background-color: #4A90E2;
-            color: white;
-            padding: 12px;
-            width: 100%;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            transition: opacity 0.2s;
-        }
-        .btn-submit:hover { opacity: 0.9; }
 
         /* Mobile Adjustments */
         @media (max-width: 600px) {
@@ -479,29 +446,11 @@
     </div>
 
     <div id="rsvpModal" class="modal-overlay">
-        <div class="modal-content">
-            <span id="closeModal" class="close-modal">&times;</span>
-            <h2 style="margin-top: 0; color: #1e293b; font-family: 'Georgia', serif; font-size: 1.5rem;">Memorial Gathering</h2>
-            
-            <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5;">
-                <strong>Saturday, April 11th<br>11:00 AM – 2:00 PM</strong><br>
-                The Willows at Historic Strasburg<br>
-                <em>Drop-in lunch featuring light fare.</em>
-            </p>
-            
-            <hr style="border: none; border-top: 1px solid #e2e8f0; margin-bottom: 15px;">
-            
-            <p style="color: #334155; font-size: 0.95rem; margin-bottom: 15px; font-weight: bold;">Please let us know if you can make it:</p>
-            
-            <div class="form-group">
-                <label for="rsvpName">Who's coming?</label>
-                <input type="text" id="rsvpName" placeholder="e.g., Jane Doe & Family">
+        <div class="modal-content" style="padding: 15px; max-width: 600px; height: 80vh; overflow: hidden; display: flex; flex-direction: column; box-sizing: border-box;">
+            <span id="closeModal" class="close-modal" style="position: absolute; top: 10px; right: 15px; z-index: 10; font-size: 2rem;">&times;</span>
+            <div style="flex-grow: 1; overflow-y: auto; margin-top: 30px; -webkit-overflow-scrolling: touch;">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScG4_HaGtdNyYv93Fo5sBW5agli1uTTtx1At5ekF0R4IBouqQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" style="border: none; min-height: 500px;">Loading…</iframe>
             </div>
-            <div class="form-group">
-                <label for="rsvpCount">Approximate number in your group:</label>
-                <input type="number" id="rsvpCount" min="1" placeholder="e.g., 3">
-            </div>
-            <button id="submitRsvp" class="btn-submit">Send RSVP</button>
         </div>
     </div>
 
@@ -533,7 +482,6 @@
         const modal = document.getElementById('rsvpModal');
         const openBtn = document.getElementById('openRsvpBtn');
         const closeBtn = document.getElementById('closeModal');
-        const submitBtn = document.getElementById('submitRsvp');
 
         // Auto-popup for first-time visitors
         window.addEventListener('load', () => {
@@ -554,20 +502,6 @@
         // Close the modal by clicking outside the box
         window.addEventListener('click', (e) => {
             if (e.target === modal) { modal.style.display = 'none'; }
-        });
-
-        // Submit button generates the pre-filled email
-        submitBtn.addEventListener('click', () => {
-            const name = document.getElementById('rsvpName').value || 'Guest';
-            const count = document.getElementById('rsvpCount').value || '1';
-            const subject = encodeURIComponent(`RSVP for Lisa's Memorial - ${name}`);
-            const body = encodeURIComponent(`Hello,\n\nWe would like to RSVP for the memorial gathering on April 11th.\n\nName(s): ${name}\nNumber in group: ${count}\n\nThank you.`);
-            
-            // Route to your email
-            window.location.href = `mailto:jermetzler@gmail.com?subject=${subject}&body=${body}`;
-            
-            // Close the form
-            modal.style.display = 'none'; 
         });
     </script>
 </body>
